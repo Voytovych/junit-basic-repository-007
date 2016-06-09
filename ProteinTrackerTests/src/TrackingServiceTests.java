@@ -1,6 +1,7 @@
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,11 @@ public class TrackingServiceTests {
 	public void setUp(){
 		System.out.println("Before");
 		service = new TrackingService();
+	}
+	
+	@After
+	public void tearDown(){
+		System.out.println("After");
 	}
 
 	@Test
