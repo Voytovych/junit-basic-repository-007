@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import ua.voytovych.junit.InvalidGoalException;
 import ua.voytovych.junit.TrackingService;
@@ -37,18 +38,21 @@ public class TrackingServiceTests {
 	}
 
 	@Test
+	@Category({GoodTestCategory.class, BadCategory.class})
 	public void newTrackingServiceTotalIsZero(){
 		assertEquals("Tracking service total was not zero", 0, service.getTotal());
 	}
 	
 	@Test
 	@Ignore
+	@Category(GoodTestCategory.class)
 	public void whenAddingProteinTotalIncreasesByThatAmount(){
 		service.addProtein(10);
 		assertEquals("Protein amount was not correct", 10, service.getTotal());
 	}
 	
 	@Test
+	@Category(GoodTestCategory.class)
 	public void whenRemovingProteinTotalRemainsZero(){
 		service.removeProtein(5);
 		assertEquals(0, service.getTotal());
