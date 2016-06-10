@@ -1,5 +1,7 @@
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.matchers.JUnitMatchers.*;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -38,17 +40,20 @@ public class TrackingServiceTests {
 	}
 
 	@Test
+	@Ignore
 	@Category({GoodTestCategory.class, BadCategory.class})
 	public void newTrackingServiceTotalIsZero(){
 		assertEquals("Tracking service total was not zero", 0, service.getTotal());
 	}
 	
 	@Test
-	@Ignore
 	@Category(GoodTestCategory.class)
 	public void whenAddingProteinTotalIncreasesByThatAmount(){
 		service.addProtein(10);
-		assertEquals("Protein amount was not correct", 10, service.getTotal());
+//		assertEquals("Protein amount was not correct", 10, service.getTotal());
+//		assertThat(service.getTotal(), is(10));
+		assertThat(service.getTotal(), allOf(is(10), instanceOf(Integer.class)));
+		
 	}
 	
 	@Test
