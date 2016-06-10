@@ -1,15 +1,21 @@
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.matchers.JUnitMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.Timeout;
 
 import ua.voytovych.junit.InvalidGoalException;
 import ua.voytovych.junit.TrackingService;
@@ -63,12 +69,23 @@ public class TrackingServiceTests {
 		assertEquals(0, service.getTotal());
 	}
 	
-	@Test(expected = InvalidGoalException.class)
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
+//	@Test(expected = InvalidGoalException.class)
+	@Test
 	public void whenGoalIsSetToLessThenZeroExceptionIsThrown() throws InvalidGoalException{
+		thrown.expect(InvalidGoalException.class);
+//		thrown.expectMessage("Goal was less than zero!");
+		thrown.expectMessage(containsString("Goal"));
 		service.setGoal(-5);
 	}
 	
-	@Test(timeout = 500)
+	@Rule
+    public Timeout timeout = new Timeout(500);
+	
+//	@Test(timeout = 500)
+	@Test
 	public void badTest() {
 		for (int i = 0; i < 1000000; i++) {
 			service.addProtein(1);
