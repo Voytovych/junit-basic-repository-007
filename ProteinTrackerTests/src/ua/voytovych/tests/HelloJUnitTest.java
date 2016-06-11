@@ -1,3 +1,4 @@
+package ua.voytovych.tests;
 
 import static org.junit.Assert.*;
 

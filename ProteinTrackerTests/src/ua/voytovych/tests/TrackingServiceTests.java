@@ -1,3 +1,4 @@
+package ua.voytovych.tests;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;

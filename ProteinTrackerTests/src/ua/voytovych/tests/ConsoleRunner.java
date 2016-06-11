@@ -1,3 +1,4 @@
+package ua.voytovych.tests;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
 
