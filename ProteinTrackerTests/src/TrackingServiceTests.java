@@ -82,7 +82,7 @@ public class TrackingServiceTests {
 	}
 	
 	@Rule
-    public Timeout timeout = new Timeout(500);
+    public Timeout timeout = new Timeout(100);
 	
 //	@Test(timeout = 500)
 	@Test
