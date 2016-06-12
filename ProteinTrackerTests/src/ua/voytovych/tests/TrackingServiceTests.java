@@ -7,6 +7,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.api.Expectation;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,6 +23,7 @@ import org.junit.rules.Timeout;
 
 import ua.voytovych.junit.HistoryItem;
 import ua.voytovych.junit.InvalidGoalException;
+import ua.voytovych.junit.Notifier;
 import ua.voytovych.junit.NotifierStub;
 import ua.voytovych.junit.TrackingService;
 
@@ -74,11 +78,22 @@ public class TrackingServiceTests {
 	
 	@Test
 	public void whenGoalIsMetHistoryIsUpdated() throws InvalidGoalException{
+		
+		Mockery context = new Mockery();
+		final Notifier mockNotifier = context.mock(Notifier.class);
+		service = new TrackingService(mockNotifier);
+		
+		context.checking(new Expectations(){
+			{oneOf(mockNotifier).send("goal met");}
+		});
+		
 		service.setGoal(5);
 		service.addProtein(6);
 		
 		HistoryItem result = service.getHistory().get(1);
 		assertEquals("sent:goal met", result.getOperation());
+		
+		context.assertIsSatisfied();
 	}
 	
 	@Rule

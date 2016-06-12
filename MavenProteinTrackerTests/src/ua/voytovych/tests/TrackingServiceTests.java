@@ -77,7 +77,6 @@ public class TrackingServiceTests {
 	@Test
 	public void whenGoalIsSetToLessThenZeroExceptionIsThrown() throws InvalidGoalException{
 		thrown.expect(InvalidGoalException.class);
-//		thrown.expectMessage("Goal was less than zero!");
 		thrown.expectMessage(containsString("Goal"));
 		service.setGoal(-5);
 	}
