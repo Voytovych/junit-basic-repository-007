@@ -88,7 +88,7 @@ public class TrackingServiceTests {
 	@Test
 	public void badTest() {
 		for (int i = 0; i < 1000000; i++) {
-			service.addProtein(1);
+			service.addProtein(0);
 		}
 	}
 }
