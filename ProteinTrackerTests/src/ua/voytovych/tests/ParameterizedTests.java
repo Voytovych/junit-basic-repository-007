@@ -8,12 +8,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
+import ua.voytovych.junit.NotifierStub;
 import ua.voytovych.junit.TrackingService;
 
 @RunWith(Parameterized.class)
 public class ParameterizedTests {
 	
-	private static TrackingService service = new TrackingService();
+	private static TrackingService service = new TrackingService(new NotifierStub());
 	private int input;
 	private int expected;
 	

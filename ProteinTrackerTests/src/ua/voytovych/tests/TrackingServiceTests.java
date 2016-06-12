@@ -18,7 +18,9 @@ import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Timeout;
 
+import ua.voytovych.junit.HistoryItem;
 import ua.voytovych.junit.InvalidGoalException;
+import ua.voytovych.junit.NotifierStub;
 import ua.voytovych.junit.TrackingService;
 
 public class TrackingServiceTests {
@@ -38,7 +40,7 @@ public class TrackingServiceTests {
 	@Before
 	public void setUp(){
 		System.out.println("Before");
-		service = new TrackingService();
+		service = new TrackingService(new NotifierStub());
 	}
 	
 	@After
@@ -68,6 +70,15 @@ public class TrackingServiceTests {
 	public void whenRemovingProteinTotalRemainsZero(){
 		service.removeProtein(5);
 		assertEquals(0, service.getTotal());
+	}
+	
+	@Test
+	public void whenGoalIsMetHistoryIsUpdated() throws InvalidGoalException{
+		service.setGoal(5);
+		service.addProtein(6);
+		
+		HistoryItem result = service.getHistory().get(1);
+		assertEquals("sent:goal met", result.getOperation());
 	}
 	
 	@Rule
